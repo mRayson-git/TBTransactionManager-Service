@@ -16,6 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/users', require('./routes/api/user/users'));
+app.use('/api/parser', require('./routes/api/parser/parser'));
 
 // Start server
 const PORT = process.env.PORT || 5000;
