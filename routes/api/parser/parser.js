@@ -33,4 +33,33 @@ router.get('/get/:email', async (req, res) => {
   }
 });
 
+// Update
+router.post('/update', async (req, res) => {
+  try {
+    const parser = req.body;
+    const updatedParser = await Parser.updateParser(parser);
+    if (updatedParser.n === 1) {
+      res.json({ success: true, message: 'Parser has been updated' });
+    } else {
+      res.json({ success: false, message: 'Parser could not be updated' });
+    }
+  } catch (err) {
+    res.json({ success: false, message: 'Parser could not be updated' });
+  }
+});
+
+// Delete
+router.post('/delete', async (req, res) => {
+  try {
+    const deletedParser = await Parser.deleteParser(req.body.email, req.body.bankAccountName);
+    if (deletedParser.n === 1) {
+      res.json({ success: true, message: 'Parser has been deleted' });
+    } else {
+      res.json({ success: false, message: 'Parser could not be deleted' });
+    }
+  } catch (err) {
+    res.json({ success: false, message: 'Parser could not be deleted' });
+  }
+});
+
 module.exports = router;

@@ -30,3 +30,10 @@ module.exports.deleteParser = async (userEmail, accountName) => {
   const deleted = await Parser.deleteOne({ email: userEmail, bankAccountName: accountName });
   return deleted;
 };
+
+// Update a parser
+module.exports.updateParser = async (parser) => {
+  // eslint-disable-next-line max-len
+  const updatedParser = await Parser.updateOne({ email: parser.email, bankAccountName: parser.bankAccountName }, parser);
+  return updatedParser;
+};

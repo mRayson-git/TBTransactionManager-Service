@@ -13,6 +13,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  contactEmail: {
+    type: String,
+    required: true,
+  },
   password: {
     type: String,
     required: true,
@@ -40,4 +44,11 @@ module.exports.getUserByEmail = async (userEmail) => {
     console.log(err);
     throw err;
   }
+};
+
+// Update a user
+module.exports.updateUser = async (user) => {
+  // eslint-disable-next-line max-len
+  const updatedUser = await User.updateOne({ email: user.email }, user);
+  return updatedUser;
 };

@@ -12,6 +12,7 @@ router.post('/register', async (req, res) => {
     const user = {
       username: req.body.username,
       email: req.body.email,
+      contactEmail: req.body.contactEmail,
       password: await bcrypt.hash(req.body.password, 10),
     };
     // Check if user already exists
@@ -50,6 +51,21 @@ router.post('/login', async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(401).send('Error with login');
+  }
+});
+
+// Update
+router.post('/update', async (req, res) => {
+  try {
+    const user = req.body;
+    const updatedUser = await User.updateUser(user);
+    if (updatedUser.n === 1) {
+      res.json({ success: true, message: 'User has been updated' });
+    } else {
+      res.json({ success: false, message: 'User could not be updated' });
+    }
+  } catch (err) {
+    res.json({ success: false, message: 'User could not be updated' });
   }
 });
 
