@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const ParserSchema = new mongoose.Schema({
   email: { type: String, required: true },
   bankAccountName: { type: String, required: true },
+  bankAccountType: { type: String, required: true },
   hasHeader: { type: Boolean, required: true },
   dateCol: { type: Number, required: true },
   amountCol: { type: Number, required: true },

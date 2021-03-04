@@ -19,10 +19,10 @@ router.post('/register', async (req, res) => {
     const ogUser = await User.getUserByEmail(user.email);
     if (!ogUser) {
       const result = await User.addUser(user);
-      res.json({ success: true, message: 'User has been added', result });
+      res.json({ success: 1, message: 'User has been added', result });
     } else {
       console.log(ogUser);
-      res.json({ success: false, message: 'Email already in use' });
+      res.json({ success: 0, message: 'Email already in use' });
     }
   } catch (err) {
     console.log(err);
@@ -39,11 +39,11 @@ router.post('/login', async (req, res) => {
       console.log(req.body.password);
       console.log(user.password);
       if (!bcrypt.compareSync(req.body.password, user.password)) {
-        res.json({ success: false, message: 'Incorrect password' });
+        res.json({ success: 0, message: 'Incorrect password' });
       } else {
         const payload = { subject: req.body.email };
         const token = jwt.sign(payload, process.env.SECRET);
-        res.json({ success: true, message: 'Logged in', result: user, result2: token });
+        res.json({ success: 1, message: 'Logged in', result: user, result2: token });
       }
     } else {
       res.json({ message: 'User does not exist' });
@@ -57,15 +57,20 @@ router.post('/login', async (req, res) => {
 // Update
 router.post('/update', async (req, res) => {
   try {
-    const user = req.body;
+    const user = {
+      username: req.body.username,
+      email: req.body.email,
+      contactEmail: req.body.contactEmail,
+      password: await bcrypt.hash(req.body.password, 10),
+    };
     const updatedUser = await User.updateUser(user);
     if (updatedUser.n === 1) {
-      res.json({ success: true, message: 'User has been updated' });
+      res.json({ success: 1, message: 'User has been updated' });
     } else {
-      res.json({ success: false, message: 'User could not be updated' });
+      res.json({ success: 0, message: 'User could not be updated' });
     }
   } catch (err) {
-    res.json({ success: false, message: 'User could not be updated' });
+    res.json({ success: 0, message: 'User could not be updated' });
   }
 });
 
