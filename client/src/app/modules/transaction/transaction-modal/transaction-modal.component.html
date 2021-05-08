@@ -1,0 +1,34 @@
+<div class="container my-3">
+  <form [formGroup]="transForm" (ngSubmit)="updateTransaction()">
+    <div class="row">
+      <div class="col-sm-12 col-md-6">
+        <div class="form-group">
+          <label>Category</label>
+          <select class="form-select" formControlName="transCategory">
+            <option value="Uncategorized">Uncategorized</option>
+            <option *ngFor="let budget of budgets">{{budget.categoryName}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="form-group">
+          <label>Custom Category</label>
+          <input type="text" class="form-control" formControlName="transCustomCategory">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label>Note</label>
+          <textarea class="form-control" formControlName="transNote" style="height: 100px">
+            {{trans.transNote}}
+          </textarea>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <button class="btn btn-success col mx-3 mt-3" type="submit" [disabled]="!transForm.valid">Update transaction</button>
+    </div>
+  </form>
+</div>

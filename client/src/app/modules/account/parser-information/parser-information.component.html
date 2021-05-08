@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-sm-12 col-md-10">
+    <h1 class="display-6">Parser: {{parser.bankAccountName}}</h1>
+  </div>
+  <div class="col-sm-12 col-md-2 text-end">
+    <p class="text-primary btn" (click)="deleteParser()">Delete parser</p>
+  </div>
+</div>
+<form [formGroup]="parserForm" (ngSubmit)="updateParser()">
+  <div class="row">
+    <div class="form-group col-sm-12 col-md-3">
+      <label>Does file have a header?</label>
+      <select class="form-select" formControlName="hasHeader">
+        <option value="true">true</option>
+        <option value="false">false</option>
+      </select>
+    </div>
+    <div class="form-group col-sm-12 col-md-3">
+      <label>Account Type</label>
+      <select class="form-select" formControlName="bankAccountType">
+        <option value="debit-card">Debit Card</option>
+        <option value="credit-card">Credit Card</option>
+      </select>
+    </div>
+    <div class="form-group col-sm-12 col-md-6">
+      <label>Account Name</label>
+      <input type="text" class="form-control" formControlName="bankAccountName">
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-sm-12 col-md-6">
+      <label>Date Column</label>
+      <input type="number" class="form-control" formControlName="dateCol">
+    </div>
+    <div class="form-group col-sm-12 col-md-6">
+      <label>Amount Column</label>
+      <input type="number" class="form-control" formControlName="amountCol">
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-sm-12 col-md-6">
+      <label>Payee Column</label>
+      <input type="number" class="form-control" formControlName="payeeCol">
+    </div>
+    <div class="form-group col-sm-12 col-md-6">
+      <label>Type Column</label>
+      <input type="number" class="form-control" formControlName="typeCol">
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="form-group col-sm-12 col-md-6">
+      <button type="submit" class="btn btn-success">Update Parser</button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,57 @@
+<h1 class="display-6">Category Creator</h1>
+<form [formGroup]="categoryNameForm" (ngSubmit)="addCategoryName()">
+  <div class="row">
+    <div class="col-sm-12 col-md-4">
+      <label>Add a category name</label>
+      <input type="text" class="form-control" placeholder="Groceries..." formControlName="categoryName">
+    </div>
+    <div class="col-sm-12 col-md-4">
+      <button type="submit" class="btn btn-success mt-4">Add Category</button>
+    </div>
+  </div>
+</form>
+<div class="card mt-3">
+  <div class="card-header">
+    <form [formGroup]="budgetForm" (ngSubmit)="addToBudget()">
+      <div class="d-inline-flex">
+        <div class="form-group">
+          <label>Category Name</label>
+          <select class="form-select" formControlName="categoryName">
+            <option *ngFor="let category of categoryNames">{{category}}</option>
+          </select>
+        </div>
+        <div class="form-group mx-3">
+          <label>Category Amount</label>
+          <input type="number" class="form-control" formControlName="budgetAmount">
+        </div>
+        <div class="form-group">
+          <label>Colour</label>
+          <input type="color" class="form-control form-control-color" formControlName="budgetColour">
+        </div>
+        <button type="submit" class="btn btn-success mt-4 mx-3">Add to Budget</button>
+      </div>
+    </form>
+  </div>
+  <div class="card-body">
+    <div class="form-text">
+      Double click an entry to remove from the budget
+    </div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Category Name</th>
+          <th>Budgeted Amount</th>
+          <th>Category Colour</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let budget of budgets" (dblclick)="deleteFromBudget(budget)">
+          <td>{{budget.categoryName}}</td>
+          <td>{{budget.budgetAmount | currency}}</td>
+          <td [style.background]="budget.budgetColour" style="width: 200px;"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

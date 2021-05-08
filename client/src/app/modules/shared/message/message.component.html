@@ -1,0 +1,3 @@
+<ngb-toast *ngFor="let toast of ms.toasts" [autohide]="true" [delay]="5000" (hide)="ms.remove(toast)" [ngStyle]="{ 'background-color': msgColour(toast.header) }">
+  {{toast.content}}
+</ngb-toast>

@@ -1,0 +1,60 @@
+<div class="row justify-content-center mt-3">
+  <div class="col-sm-12 col-md-6">
+    <div class="card bg-light">
+      <div class="card-header">
+        <div class="row">
+          <div class="col">
+            <h3 class="align-middle">think<span class="text-success">Budget</span></h3>
+          </div>
+          <div class="col text-end">
+            <a routerLink="/login">Already have an account?</a>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="registerForm" (ngSubmit)="submit()">
+          <div class="form-group">
+            <label class="text-success">Username</label>
+            <input type="text" class="form-control" formControlName="username" 
+            [ngClass]="{ 'is-invalid': isFieldInvalid('username'), 'is-valid': isFieldValid('username') }">
+            <span class="invalid-feedback" *ngIf="isFieldInvalid('username')">Required.</span>
+          </div>
+          <div class="form-group">
+            <label class="text-success">Email</label>
+            <input type="text" class="form-control" formControlName="email"
+            [ngClass]="{ 'is-invalid': isFieldInvalid('email'), 'is-valid': isFieldValid('email') }">
+            <div class="form-text">This email must be unique, used for logging in.</div>
+            <span class="invalid-feedback" *ngIf="registerForm.get('email').errors?.required">Required.</span>
+            <span class="invalid-feedback" *ngIf="registerForm.get('email').errors?.email">Must be a valid email.</span>
+          </div>
+          <div class="form-group">
+            <label class="text-success">Contact Email</label>
+            <input type="text" class="form-control" formControlName="contactEmail"
+            [ngClass]="{ 'is-invalid': isFieldInvalid('contactEmail'), 'is-valid': isFieldValid('contactEmail') }">
+            <div class="form-text">This email will be used for contact purposes only</div>
+            <span class="invalid-feedback" *ngIf="registerForm.get('contactEmail').errors?.required">Required.</span>
+            <span class="invalid-feedback" *ngIf="registerForm.get('contactEmail').errors?.email">Must be a valid email.</span>
+          </div>
+          <div class="form-group">
+            <label class="text-success">Password</label>
+            <input type="password" class="form-control" formControlName="password"
+            [ngClass]="{ 'is-invalid': isFieldInvalid('password'), 'is-valid': isFieldValid('password') }">
+            <span class="invalid-feedback" *ngIf="registerForm.get('password').errors?.required">Required.</span>
+            <span class="invalid-feedback" *ngIf="registerForm.get('password').errors?.minlength">Must be at least 8 characters.</span>
+          </div>
+          <div class="form-group">
+            <label class="text-success">Confirm Password</label>
+            <input type="password" class="form-control" formControlName="cpassword"
+            [ngClass]="{ 'is-invalid': (registerForm.get('cpassword').touched || registerForm.get('cpassword').dirty) && registerForm.errors?.notMatching,
+            'is-valid': (registerForm.get('cpassword').touched || registerForm.get('cpassword').dirty) && !registerForm.errors?.notMatching }">
+            <span class="invalid-feedback" *ngIf="registerForm.get('cpassword').errors?.required">Required.</span>
+            <span class="invalid-feedback" *ngIf="registerForm.errors?.notMatching">Passwords must match.</span>
+          </div>
+          <div class="form-group mt-3">
+            <button class="btn btn-success" type="submit">Register</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

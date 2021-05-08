@@ -1,0 +1,27 @@
+<h1 class="display-6">Account Settings</h1>
+<form [formGroup]="userSettings" (ngSubmit)="updateAccountSettings()">
+  <div class="row">
+    <div class="col-sm-12 col-md-4">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" class="form-control" placeholder="{{currUser.username}}" formControlName="username">
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="text" class="form-control text-muted" placeholder="{{currUser.email}}" formControlName="email">
+      </div>
+      <div class="form-group">
+        <label>Contact Email</label>
+        <input type="text" class="form-control" placeholder="{{currUser.contactEmail}}" formControlName="contactEmail">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-control" formControlName="password">
+        <div class="form-text">You must enter your password for any changes.</div>
+      </div>
+      <div class="form-group mt-3">
+        <button type="submit" class="btn btn-success" [disabled]="!userSettings.valid">Update Account Information</button>
+      </div>
+    </div>
+  </div>
+</form>

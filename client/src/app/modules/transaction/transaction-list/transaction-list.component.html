@@ -1,0 +1,109 @@
+<h1 class="display-6">Transaction List</h1>
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-sm-10">
+        <h3>Transactions</h3>
+      </div>
+      <div class="col-md-2">
+        <button type="button" class="btn btn-success" (click)="updateCategories()">Update Categories</button>
+      </div>
+    </div>
+    <form [formGroup]="searchForm" (ngSubmit)="search()">
+      <div class="row">
+        <div class="col-2">
+          <label>Account</label>
+          <select class="form-select" formControlName="accountType">
+            <option value=".*">All</option>
+            <option value="debit-card">Debit</option>
+            <option value="credit-card">Credit</option>
+          </select>
+        </div>
+        <div class="col">
+          <label>Time Range</label>
+          <div class="row">
+            <div class="col-6">
+              <select class="form-select">
+                <option value="*">All</option>
+                <option value="1">Jan</option>
+                <option value="2">Feb</option>
+                <option value="3">Mar</option>
+                <option value="4">Apr</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">Aug</option>
+                <option value="9">Sept</option>
+                <option value="10">Oct</option>
+                <option value="11">Nov</option>
+                <option value="12">Dec</option>
+              </select>
+            </div>
+            <div class="col">
+              <select class="form-select">
+                <option value="*">All</option>
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+                <option value="2019">2019</option>
+                <option value="2018">2018</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <label>Payee</label>
+          <select class="form-select" formControlName="transPayee">
+            <option value=".*">Any</option>
+            <option *ngFor="let payee of payees">{{payee}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label>Category</label>
+          <select class="form-select" formControlName="transCategory">
+            <option value=".*">Any</option>
+            <option *ngFor="let category of categories">{{category}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label>Rows (set 0 for all)</label>
+          <input type="number" class="form-control" min="0" formControlName="numberOfResults">
+        </div>
+        <div class="col-1">
+          <button type="submit" class="btn btn-success mt-4">Search</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div *ngIf="transactionList.length === 0;else loaded">
+    <div class="spinner-border m-5" role="status"></div>
+  </div>
+  <ng-template #loaded>
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>Account</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th>Payee</th>
+          <th>Category</th>
+          <th>Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transaction of transactionList" (click)="showTransactionModal(transaction)">
+          <td>{{transaction.bankAccountName}}</td>
+          <td *ngIf="transaction.transAmount < 0; else black" class="text-danger">{{transaction.transAmount}}</td>
+          <ng-template #black><td>{{transaction.transAmount}}</td></ng-template>
+          <td>{{transaction.transDate | date: short}}</td>
+          <td>{{transaction.transPayee | uppercase}}</td>
+          <td>{{transaction.transCategory}}</td>
+          <td>
+            <svg *ngIf="transaction.transNote" class="bi" width="32" height="32" fill="currentColor">
+              <use xlink:href="/assets/bootstrap-icons.svg#card-text"/>
+            </svg>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-template>
+</div>

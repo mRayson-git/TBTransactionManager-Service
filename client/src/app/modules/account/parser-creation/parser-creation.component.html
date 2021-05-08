@@ -1,0 +1,69 @@
+<h1 class="display-6">Parser Settings</h1>
+<div class="card mb-3">
+  <div class="card-header">
+    Parser Creator
+  </div>
+  <div class="card-body">
+    <form [formGroup]="parserForm" (ngSubmit)="saveParser()">
+      <div class="row">
+        <div class="col-sm-12 col-md-4">
+          <div class="form-group">
+            <label>Account Name</label>
+            <input type="text" class="form-control" formControlName="bankAccountName">
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-4">
+          <div class="form-group">
+            <label>Date Column</label>
+            <input type="number" class="form-control" formControlName="dateCol">
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-4">
+          <div class="form-group">
+            <label>Amount Column</label>
+            <input type="number" class="form-control" formControlName="amountCol">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-4">
+          <div class="form-group">
+            <label>Payee Column</label>
+            <input type="number" class="form-control" formControlName="payeeCol">
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-4">
+          <div class="form-group">
+            <label>Type Column</label>
+            <input type="number" class="form-control" formControlName="typeCol">
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-2">
+          <div class="form-group">
+            <label>File Header</label>
+            <select class="form-select" formControlName="hasHeader">
+              <option value="true">True</option>
+              <option value="false">False</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-2">
+          <div class="form-group">
+            <label>Account Type</label>
+            <select class="form-select" formControlName="bankAccountType">
+              <option value="debit-card">Debit Card</option>
+              <option value="credit-card">Credit Card</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group mt-3">
+        <button type="submit" class="btn btn-success" [disabled]="!parserForm.valid">Save Parsing Profile</button>
+      </div>
+    </form>
+  </div>
+</div>
+<p>Your current parsers:</p>
+<ul>
+  <li *ngFor="let parser of parsers" class="py-1"><button class="btn btn-success btn-sm" (click)="goToInformation(parser)">{{parser.bankAccountName}}</button></li>
+</ul>
